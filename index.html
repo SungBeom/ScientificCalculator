@@ -83,7 +83,6 @@
             background-color: #cddecc;
             border-radius: 5px;
             display: none;
-            /*display: inline-flex;*/
             justify-content: flex-end;
             align-items: center;
             overflow: hidden;
@@ -112,7 +111,6 @@
             border-radius: 10px;
             color: white;
             background: rgba(0, 0, 0, 0.7);
-            /*opacity: 0.7;*/
         }
         
         #help-close {
@@ -348,10 +346,6 @@
         #empty {
             height: 25px;
         }
-        
-        /*#empty {
-            display: inline-flex;
-        }*/
        
         .key {
             width: 75px;
@@ -426,11 +420,6 @@
             text-align: center;
         }
         
-        /*.button-key {
-            width: 100px;
-            margin-left: 22px;
-        }*/
-        
         .six-popup-key {
             width: 50px;
             height: 20px;
@@ -494,7 +483,7 @@
     </style>
  
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js' type='text/javascript'></script>
-    <script src='math.js' type='text/javascript'></script>
+    <script src='src/math.js' type='text/javascript'></script>
 
     <script type="text/javascript" async
         src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
@@ -581,85 +570,6 @@
                             popup();
                         }
                     }
-                    /*else if($(this).hasClass('keys'))
-                    {
-                        if($(this).text() == 'Compare')
-                        {
-                            next = '#compare';
-                            if(prev == emp) {
-                                $(emp).toggle();
-                                $(next).toggle();
-                                prev = next;
-                            }
-                            else if(prev == next) {
-                                $(next).toggle();
-                                $(emp).toggle();
-                                prev = emp;
-                            }
-                            else {
-                                $(prev).toggle();
-                                $(next).toggle();
-                                prev = next;
-                            }
-                        }
-                        else if($(this).text() == 'VectorMatrix')
-                        {
-                            next = '#vecMat';
-                            if(prev == emp) {
-                                $(emp).toggle();
-                                $(next).toggle();
-                                prev = next;
-                            }
-                            else if(prev == next) {
-                                $(next).toggle();
-                                $(emp).toggle();
-                                prev = emp;
-                            }
-                            else {
-                                $(prev).toggle();
-                                $(next).toggle();
-                                prev = next;
-                            }
-                        }
-                        else if($(this).text() == 'Function')
-                        {
-                            next = '#function';
-                            if(prev == emp) {
-                                $(emp).toggle();
-                                $(next).toggle();
-                                prev = next;
-                            }
-                            else if(prev == next) {
-                                $(next).toggle();
-                                $(emp).toggle();
-                                prev = emp;
-                            }
-                            else {
-                                $(prev).toggle();
-                                $(next).toggle();
-                                prev = next;
-                            }
-                        }
-                        else if($(this).text() == 'Variablef(x)')
-                        {
-                            next = '#varFx';
-                            if(prev == emp) {
-                                $(emp).toggle();
-                                $(next).toggle();
-                                prev = next;
-                            }
-                            else if(prev == next) {
-                                $(next).toggle();
-                                $(emp).toggle();
-                                prev = emp;
-                            }
-                            else {
-                                $(prev).toggle();
-                                $(next).toggle();
-                                prev = next;
-                            }
-                        }
-                    }*/
                     else if($(this).hasClass('cp-key'))
                     {
                         if($(this).text() == 'copy')
@@ -912,10 +822,6 @@
 </head>
  
 <body>
-    <h1>
-            PSB's Calculator
-    </h1>           
-   
     <div id="calculator">
         <div id="help-panel">
             <button id="help-close" onclick="closeHelp()">x</button>
@@ -990,38 +896,6 @@
         <span class="key keys">Function</span>
         <span class="key keys">Variable<br>f(x)</span>
         
-        <!--<div class="menu" id="empty"></div>
-        <div class="menu" id="compare">
-            <span class="key button-key"><</span>
-            <span class="key button-key">></span>
-            <span class="key button-key"><=</span>
-            <span class="key button-key">>=</span>
-            <span class="key button-key">==</span>
-            <span class="key button-key">!=</span>
-        </div>
-        <div class="menu" id="vecMat">
-            <span class="key button-key">내적</span>
-            <span class="key button-key">외적</span>
-            <span class="key button-key">행렬곱셈</span>
-            <span class="key button-key">Inverse</span>
-            <span class="key button-key">Det</span>
-        </div>
-        <div class="menu" id="function">
-            <span class="key button-key">sin</span>
-            <span class="key button-key">cos</span>
-            <span class="key button-key">tan</span>
-            <span class="key button-key">exp</span>
-            <span class="key button-key">log</span>
-            <span class="key button-key">sqrt</span>
-        </div>
-        <div class="menu" id="varFx">
-            <span class="key button-key">x</span>
-            <span class="key button-key">y</span>
-            <span class="key button-key">z</span>
-            <span class="key button-key">f(x)</span>
-            <span class="key button-key">g(x)</span>
-        </div>-->
-        
         <span class="key semi-key">(</span>
         <span class="key semi-key">)</span>
         <span class="key semi-key">[</span>
@@ -1057,35 +931,6 @@
         <span class="key semi-key">;</span>
         <span class="key">=</span>
         <span class="key eval-key">EV</span>
-        
-        <!--<span class="key">^</span>
-        <span class="key"><</span>
-        <span class="key">></span>
-        <span class="key"><=</span>
-        <span class="key">>=</span>
-        <span class="key">==</span>
-        <span class="key">!=</span>
-        <span class="key symbol-key">i</span>
-        <span class="key symbol-key">e</span>
-        <span class="key symbol-key">pi</span>
-        <span class="key symbol-key">w</span>
-        <span class="key symbol-key">x</span>
-        <span class="key symbol-key">y</span>
-        <span class="key symbol-key">z</span>
-        <span class="key symbol-key">f</span>
-        <span class="key symbol-key">g</span>
-        <span class="key">=</span>
-        <span class="key function-key">exp</span>
-        <span class="key function-key">log</span>
-        <span class="key function-key">sqrt</span>
-        <span class="key function-key">sin</span>
-        <span class="key function-key">cos</span>
-        <span class="key function-key">tan</span>
-        <span class="key function-key">cross</span>
-        <span class="key function-key">det</span>-->
-        
-        
-        <!--<div id="latex"></div>-->
     </div>
 </body>
 </html>
