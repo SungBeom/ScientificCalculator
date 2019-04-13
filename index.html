@@ -1,0 +1,1091 @@
+<html>
+<head>
+    <title>PSB's Calculator</title>
+    <style type="text/css">
+        body {
+            margin: 0px 0px 0px 0px;
+        }
+       
+        h1 {
+            font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, "AppleGothic", sans-serif;
+            font-size: 30px;
+            padding: 20px 10px;
+            text-align: center;
+            text-transform: uppercase;
+            text-rendering: optimizeLegibility;
+            color: #e0dfdc;
+            background-color: #333;
+            letter-spacing: .1em;
+            text-shadow: 
+            0 -1px 0 #fff, 
+            0 1px 0 #2e2e2e, 
+            0 2px 0 #2c2c2c, 
+            0 3px 0 #2a2a2a, 
+            0 4px 0 #282828, 
+            0 5px 0 #262626, 
+            0 6px 0 #242424, 
+            0 7px 0 #222, 
+            0 8px 0 #202020, 
+            0 9px 0 #1e1e1e, 
+            0 10px 0 #1c1c1c, 
+            0 11px 0 #1a1a1a, 
+            0 12px 0 #181818, 
+            0 13px 0 #161616, 
+            0 14px 0 #141414, 
+            0 15px 0 #121212, 
+            0 22px 30px rgba(0, 0, 0, 0.9);
+        }
+       
+        #calculator {
+            font-size: 0;
+            width: 400px;
+            background-color: #484848;
+            padding: 20px;
+            margin: auto;
+            border-radius: 10px;
+        }
+       
+        #result {
+            width: 385px;
+            height: 50px;
+            margin-bottom: 15px;
+            padding: 0px 5px 0px 5px;
+            background-color: #cddecc;
+            border-radius: 5px;
+            display: inline-flex;
+            justify-content: flex-end;
+            align-items: center;
+            overflow: hidden;
+            box-shadow: inset 0 0px 3px;
+            font: 20px digital;
+        }
+        
+        #history {
+            width: 385px;
+            height: 100px;
+            margin-bottom: 15px;
+            padding: 0px 5px 0px 5px;
+            background-color: #cddecc;
+            border-radius: 5px;
+            text-align: right;
+            overflow-y: auto;
+            z-index: 3;
+            box-shadow: inset 0 0px 3px;
+            font: 20px digital;
+        }
+
+        #latex {
+            width: 385px;
+            height: 70px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            padding: 0px 5px 0px 5px;
+            background-color: #cddecc;
+            border-radius: 5px;
+            display: none;
+            /*display: inline-flex;*/
+            justify-content: flex-end;
+            align-items: center;
+            overflow: hidden;
+            box-shadow: inset 0 0px 3px;
+            font: 20px digital;          
+        }
+        
+        #help {
+            width: 30px;
+            height: 30px;
+            float: right;
+            margin: 0px 5px 5px 0px;
+            border-radius: 15px;
+            text-align: center;
+            font-size: 18px;
+            background-color: dodgerblue;
+            color: aliceblue;
+        }
+        
+        #help-panel {
+            width: 396px;
+            height: 672px;
+            display: none;
+            position: absolute;
+            background-color: black;
+            border-radius: 10px;
+            color: white;
+            background: rgba(0, 0, 0, 0.7);
+            /*opacity: 0.7;*/
+        }
+        
+        #help-close {
+            width: 30px;
+            height: 30px;
+            float: right;
+            margin: 0px 0px 5px 0px;
+            border-radius: 15px;
+            text-align: center;
+            font-size: 18px;
+            background-color: dodgerblue;
+            color: aliceblue;
+        }
+        
+        #help-history {
+            width: 385px;
+            height: 60px;
+            margin-top: 35px;
+            padding-top: 30px;
+            border: 5px solid white;
+            border-radius: 5px;
+            text-align: center;
+            font: 20px digital;
+        }
+        
+        #help-result {
+            width: 385px;
+            height: 31px;
+            margin-top: 15px;
+            padding-top: 9px;
+            border: 5px solid white;
+            border-radius: 5px;
+            text-align: center;
+            font: 17px digital;
+        }
+        
+        #help-cp {
+            width: 185px;
+            height: 30px;
+            margin-top: 18px;
+            margin-right: 5px;
+            padding-top: 3px;
+            display: inline-block;
+            border: 5px solid white;
+            border-radius: 5px;
+            text-align: center;
+            font: 20px digital;
+        }
+        
+        #help-vm {
+            width: 185px;
+            height: 30px;
+            margin-top: 18px;
+            padding-top: 3px;
+            display: inline-block;
+            border: 5px solid white;
+            border-radius: 5px;
+            text-align: center;
+            font: 20px digital;
+        }
+        
+        #help-hs {
+            width: 385px;
+            height: 26px;
+            margin-top: 5px;
+            padding-top: 7px;
+            border: 5px solid white;
+            border-radius: 5px;
+            text-align: center;
+            font: 14px digital;
+        }
+        
+        #help-popup {
+            width: 385px;
+            height: 24px;
+            margin-top: 3px;
+            padding-top: 5px;
+            border: 5px solid white;
+            border-radius: 5px;
+            text-align: center;
+            font: 15px digital;
+        }
+        
+        #help-group {
+            width: 385px;
+            height: 32px;
+            padding-top: 10px;
+            border: 5px solid white;
+            border-radius: 5px;
+            text-align: center;
+            font: 17px digital;
+        }
+        
+        #help-bracketsM {
+            width: 65px;
+            height: 28px;
+            margin-top: 15px;
+            margin-right: 5px;
+            padding-top: 6px;
+            display: inline-block;
+            border: 5px solid white;
+            border-radius: 5px;
+            text-align: center;
+            font: 17px digital;
+        }
+        
+        #help-bracketsB {
+            width: 65px;
+            height: 28px;
+            margin-top: 15px;
+            margin-right: 5px;
+            padding-top: 6px;
+            display: inline-block;
+            border: 5px solid white;
+            border-radius: 5px;
+            text-align: center;
+            font: 17px digital;
+        }
+        
+        #help-complex {
+            width: 105px;
+            height: 28px;
+            margin-top: 15px;
+            margin-right: 5px;
+            padding-top: 6px;
+            display: inline-block;
+            border: 5px solid white;
+            border-radius: 5px;
+            text-align: center;
+            font: 17px digital;
+        }
+        
+        #help-delete {
+            width: 105px;
+            height: 28px;
+            margin-top: 15px;
+            padding-top: 6px;
+            display: inline-block;
+            border: 5px solid white;
+            border-radius: 5px;
+            text-align: center;
+            font: 17px digital;
+        }
+        
+        #help-num {
+            width: 225px;
+            height: 79px;
+            margin-top: 8px;
+            margin-right: 5px;
+            padding-top: 55px;
+            display: inline-block;
+            border: 5px solid white;
+            border-radius: 5px;
+            text-align: center;
+            font: 17px digital;
+        }
+        
+        #help-cal {
+            width: 145px;
+            height: 79px;
+            margin-top: 8px;
+            padding-top: 55px;
+            display: inline-block;
+            border: 5px solid white;
+            border-radius: 5px;
+            text-align: center;
+            font: 17px digital;
+        }
+        
+        #help-num2 {
+            width: 65px;
+            height: 28px;
+            margin-top: 8px;
+            margin-right: 5px;
+            padding-top: 6px;
+            display: inline-block;
+            border: 5px solid white;
+            border-radius: 5px;
+            text-align: center;
+            font: 17px digital;
+        }
+        
+        #help-char {
+            width: 145px;
+            height: 28px;
+            margin-top: 8px;
+            margin-right: 5px;
+            padding-top: 6px;
+            display: inline-block;
+            border: 5px solid white;
+            border-radius: 5px;
+            text-align: center;
+            font: 17px digital;
+        }
+        
+        #help-assign {
+            width: 65px;
+            height: 28px;
+            margin-top: 8px;
+            margin-right: 5px;
+            padding-top: 6px;
+            display: inline-block;
+            border: 5px solid white;
+            border-radius: 5px;
+            text-align: center;
+            font: 17px digital;
+        }
+        
+        #help-ev {
+            width: 65px;
+            height: 28px;
+            margin-top: 8px;
+            padding-top: 6px;
+            display: inline-block;
+            border: 5px solid white;
+            border-radius: 5px;
+            text-align: center;
+            font: 17px digital;
+        }
+        
+        #console {
+            display: none;
+        }
+        
+        #matrix-content {
+            width: 363px;
+            height: 46px;
+            font-size: 20px;
+            text-align: right;
+            display: inline-flex;
+        }
+        
+        #empty {
+            height: 25px;
+        }
+        
+        /*#empty {
+            display: inline-flex;
+        }*/
+       
+        .key {
+            width: 75px;
+            height: 30px;
+            background-color: #eeeeee;
+            display: inline-flex;
+            margin: 3px 5px 8px 0px;
+            vertical-align: middle;
+            justify-content: center;
+            align-items: center;
+            padding: 5px 0px 5px 0px;
+            border-radius: 4px;
+            cursor: pointer;
+            box-shadow: 0 3px 0 #a1a1a1, 0 2px 5px rgba(0, 0, 0, .75);
+            font: bold 20px sans-serif;
+        }
+        
+        .keys {
+            width: 95px;
+            height: 50px;
+            background-color: yellow;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .menu {
+            width: 395px;
+            height: 100px;
+            background-color: gray;
+            display: none;
+            margin: 3px 5px 8px 0px;
+            vertical-align: middle;
+            justify-content: center;
+            align-items: center;
+            padding: 5px 0px 5px 0px;
+            border-radius: 4px;
+        }
+        
+        .popup {
+            width: 395px;
+            height: 40px;
+            background-color: gray;
+            display: none;
+            position: absolute;
+            border-radius: 4px;
+        }
+        
+        .matrix-box {
+            width: 30px;
+            height: 40px;
+            margin-right: 3px;
+            font-size: 15px;
+            text-align: center;
+            border-radius: 4px;
+        }
+        
+        .matrix-clear {
+            width: 30px;
+            height: 40px;
+            background-color: #bb1c09;
+            color: white;
+        }
+        
+        .matrix-print {
+            width: 30px;
+            background-color: aquamarine;
+            margin: 0px 0px 0px 3px;
+            padding: 0px 0px 0px 0px;
+            border-radius: 0px;
+            box-shadow: 0 0 0, 0 0 0;
+            font: normal 15px sans-serif;
+            text-align: center;
+        }
+        
+        /*.button-key {
+            width: 100px;
+            margin-left: 22px;
+        }*/
+        
+        .six-popup-key {
+            width: 50px;
+            height: 20px;
+            margin-left: 10px;
+        }
+        
+        .five-popup-key {
+            width: 69px;
+            height: 20px;
+            margin-left: 5px;
+        }
+
+        .symbol-key {
+            font: italic 20px "Times New Roman"
+        }
+
+        .function-key {
+            font: italic 15px "Times New Roman"
+        }
+        
+        .cp-key {
+            width: 95px;
+            background-color: darkturquoise;
+            color: whitesmoke;
+        }
+        
+        .matrix-key {
+            width: 95px;
+            background-color: turquoise;
+            color: whitesmoke;
+            text-align: center;
+            font-size: 15px;
+        }
+        
+        .semi-key {
+            width: 35px;
+        }
+
+        .eval-key {
+            background-color: #4a9840;
+            color: white;
+        }
+        
+        .back-key {
+            width: 55px;
+            background-color: firebrick;
+            color: white;
+        }
+       
+        .clear-key {
+            width: 55px;
+            background-color: #bb1c09;
+            color: white;
+        }
+       
+        .key:active {
+            background-color: #a1a1a1;
+            box-shadow: 0 5px #666;
+            transform: translateY(4px);
+        }
+    </style>
+ 
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js' type='text/javascript'></script>
+    <script src='math.js' type='text/javascript'></script>
+
+    <script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>  
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+          "HTML-CSS": { scale: 75}
+        });
+    </script>
+      
+    <script type="text/javascript">
+        $(document).ready(function(){
+            var parser = math.parser();
+
+            var displayValue = '0';
+            
+            const emp = '#empty';
+            let prev = '#empty';
+            let next;
+            
+            let temp;
+            
+            let rowFocus = false;
+            let colFocus = false;
+            let matrixFocus = false;
+            
+            let cursorPosition;
+            
+            $('#result').text(displayValue);
+            $('#latex').html('$$' + math.parse(displayValue).toTex() + '$$');
+ 
+            $('.key').each(function(index, key){
+                $(this).click(function(e){
+                    if(displayValue == '0') displayValue = '';
+
+                    if($(this).text() == 'EV')
+                    {
+                        try
+                        {
+                            $('#history').text($('#history').text() + '\n' + displayValue + ' = ');
+                            displayValue = parser.eval(displayValue).toString();
+                            var tokens = displayValue.split(' ');
+                            if(tokens[0] == 'function')
+                            {
+                                displayValue = tokens[0];
+                            }
+                            $('#history').text($('#history').text() + displayValue);
+                            $('#history').scrollTop($('#history').height());
+                            $('#result').text(displayValue);
+                            displayValue = '0';
+                        }
+                        catch (e)
+                        {
+                            displayValue = '0';
+                            if(displayValue != 'function')
+                            {
+                                $('#history').text($('#history').text() + e);
+                                $('#history').scrollTop($('#history').height());
+                                $('#result').text(e);
+                            }
+                        }
+                    }
+                    else if($(this).hasClass('keys'))
+                    {
+                        if($(this).text() == 'Compare')
+                        {
+                            next = '#compare';
+                            popup();
+                        }
+                        else if($(this).text() == 'VectorMatrix')
+                        {
+                            next = '#vecMat';
+                            popup();
+                        }
+                        else if($(this).text() == 'Function')
+                        {
+                            next = '#function';
+                            popup();
+                        }
+                        else if($(this).text() == 'Variablef(x)')
+                        {
+                            next = '#varFx';
+                            popup();
+                        }
+                    }
+                    /*else if($(this).hasClass('keys'))
+                    {
+                        if($(this).text() == 'Compare')
+                        {
+                            next = '#compare';
+                            if(prev == emp) {
+                                $(emp).toggle();
+                                $(next).toggle();
+                                prev = next;
+                            }
+                            else if(prev == next) {
+                                $(next).toggle();
+                                $(emp).toggle();
+                                prev = emp;
+                            }
+                            else {
+                                $(prev).toggle();
+                                $(next).toggle();
+                                prev = next;
+                            }
+                        }
+                        else if($(this).text() == 'VectorMatrix')
+                        {
+                            next = '#vecMat';
+                            if(prev == emp) {
+                                $(emp).toggle();
+                                $(next).toggle();
+                                prev = next;
+                            }
+                            else if(prev == next) {
+                                $(next).toggle();
+                                $(emp).toggle();
+                                prev = emp;
+                            }
+                            else {
+                                $(prev).toggle();
+                                $(next).toggle();
+                                prev = next;
+                            }
+                        }
+                        else if($(this).text() == 'Function')
+                        {
+                            next = '#function';
+                            if(prev == emp) {
+                                $(emp).toggle();
+                                $(next).toggle();
+                                prev = next;
+                            }
+                            else if(prev == next) {
+                                $(next).toggle();
+                                $(emp).toggle();
+                                prev = emp;
+                            }
+                            else {
+                                $(prev).toggle();
+                                $(next).toggle();
+                                prev = next;
+                            }
+                        }
+                        else if($(this).text() == 'Variablef(x)')
+                        {
+                            next = '#varFx';
+                            if(prev == emp) {
+                                $(emp).toggle();
+                                $(next).toggle();
+                                prev = next;
+                            }
+                            else if(prev == next) {
+                                $(next).toggle();
+                                $(emp).toggle();
+                                prev = emp;
+                            }
+                            else {
+                                $(prev).toggle();
+                                $(next).toggle();
+                                prev = next;
+                            }
+                        }
+                    }*/
+                    else if($(this).hasClass('cp-key'))
+                    {
+                        if($(this).text() == 'copy')
+                        {
+                            temp = $('#console').text();
+                        }
+                        else if($(this).text() == 'paste')
+                        {
+                            if(displayValue == '') $('#result').text('');
+                            
+                            displayValue += temp;
+                            $('#result').text($('#result').text() + temp);
+                        }
+                    }
+                    else if($(this).hasClass('matrix-key'))
+                    {
+                        let row = $('#row').val();
+                        let col = $('#col').val();
+                        if(row == '' || col == '') {
+                            rowFocus = false;
+                            colFocus = false;
+                            return;
+                        }
+                        
+                        let mat = '[';
+                        for(let i=0; i<row; i++) {
+                            mat += '[';
+                            for(let j=1; j<col; j++) {
+                                mat += ',';
+                            }
+                            mat += ']';
+                            if(i != row-1) mat+=',';
+                        }
+                        mat += ']';
+
+                        $('#matrix-content').removeAttr('disabled');
+                        $('#matrix-content').val(mat);
+                        $('.matrix-print').removeAttr('disabled');
+                    }
+                    else
+                    {
+                        if($(this).text() == 'CL')
+                        {
+                            displayValue = '0';
+                            $('#result').text(displayValue);
+                            var node = math.parse(displayValue);
+                            var latex = node.toTex({parenthesis: 'keep', implicit: 'hide'});
+                            var elem = MathJax.Hub.getAllJax('latex')[0];
+                            MathJax.Hub.Queue(['Text', elem, latex]);
+                        }
+                        else if($(this).text() == 'BS')
+                        {
+                            displayValue = displayValue.slice(0, -1);
+                            $('#result').text(displayValue);
+                        }
+                        else if($(this).text() == 'set')
+                        {
+                            displayValue += $('#matrix-content').val();
+                            $('#result').text(displayValue);
+                        }
+                        else
+                        {
+                            if(matrixFocus && $(this).hasClass('num')) {
+                                let mat = $('#matrix-content').val();
+                                mat = mat.slice(0, cursorPosition) + $(this).text() + mat.slice(cursorPosition);
+                                console.log(mat);
+                                
+                                $('#matrix-content').val(mat);
+                                $('#matrix-content').blur();
+                                return;
+                            }
+                            
+                            if((rowFocus || colFocus) && $(this).hasClass('num')) {
+                                if(rowFocus) {
+                                    $('#row').val($('#row').val() + $(this).text());
+                                    $('#row').focus();
+                                }
+                                else if(colFocus) {
+                                    $('#col').val($('#col').val() + $(this).text());
+                                    $('#col').focus();
+                                }
+                                return;
+                            }
+                            
+                            rowFocus = false;
+                            colFocus = false;
+                            
+                            if($(this).hasClass('tg')) {
+                                $(this).closest('.popup').toggle();
+                                prev = emp;
+                            }
+                            
+                            if($(this).text() == '내적') {
+                                displayValue += 'dot';
+                                $('#matrix-content').attr('disabled', 'disabled');
+                                $('#matrix-content').val('ex) dot([2,4,1], [2,2,3]) = 15');
+                            }
+                            else if($(this).text() == '외적') {
+                                displayValue += 'cross';
+                                $('#matrix-content').attr('disabled', 'disabled');
+                                $('#matrix-content').val('ex) cross([1,1,0], [0,1,1] = [1,-1,1])');
+                            }
+                            else if($(this).text() == '행렬곱') {
+                                displayValue += '*';
+                                $('#matrix-content').attr('disabled', 'disabled');
+                                $('#matrix-content').val('ex) [[1,2],[3,4]]*[[1,2],[2,1]] = [[5,4],[8,7]]');
+                            }
+                            else if($(this).text() == 'Inverse') {
+                                displayValue += 'inv';
+                                $('#matrix-content').attr('disabled', 'disabled');
+                                $('#matrix-content').val('ex) inv([[1,2],[3,4]]) = [[-2,1],[1.5,-0.5]]');
+                            }
+                            else if($(this).text() == 'Det') {
+                                displayValue += 'det';
+                                $('#matrix-content').attr('disabled', 'disabled');
+                                $('#matrix-content').val('ex) det([[1,2],[3,4]]) = -2');
+                            }
+                            else if($(this).text() == 'sin') {
+                                displayValue += 'sin';
+                                $('#matrix-content').attr('disabled', 'disabled');
+                                $('#matrix-content').val('ex) sin(pi/2) = 1');
+                            }
+                            else if($(this).text() == 'cos') {
+                                displayValue += 'cos';
+                                $('#matrix-content').attr('disabled', 'disabled');
+                                $('#matrix-content').val('ex) cos(pi/3) = 0.5000000000000001');
+                            }
+                            else if($(this).text() == 'tan') {
+                                displayValue += 'tan';
+                                $('#matrix-content').attr('disabled', 'disabled');
+                                $('#matrix-content').val('ex) tan(pi/4) = 0.9999999999999999');
+                            }
+                            else if($(this).text() == 'exp') {
+                                displayValue += 'exp';
+                                $('#matrix-content').attr('disabled', 'disabled');
+                                $('#matrix-content').val('ex) exp(2) = 7.3890560989306495');
+                            }
+                            else if($(this).text() == 'log') {
+                                displayValue += 'log';
+                                $('#matrix-content').attr('disabled', 'disabled');
+                                $('#matrix-content').val('ex) log(3.5) = 1.252762968495368');
+                            }
+                            else if($(this).text() == 'sqrt') {
+                                displayValue += 'sqrt';
+                                $('#matrix-content').attr('disabled', 'disabled');
+                                $('#matrix-content').val('ex) sqrt(25) = 5');
+                            }
+                            else if($(this).text() == 'f(x)') {
+                                displayValue += 'f(x)';
+                                $('#matrix-content').attr('disabled', 'disabled');
+                                $('#matrix-content').val('ex) f(x)=x+3');
+                            }
+                            else if($(this).text() == 'g(x)') {
+                                displayValue += 'g(x)';
+                                $('#matrix-content').attr('disabled', 'disabled');
+                                $('#matrix-content').val('ex) g(x)=x^2+2*x+1');
+                            }
+                            else displayValue += $(this).text();
+                            
+                            $('#result').text(displayValue);
+                            var node = math.parse(displayValue);
+                            var latex = node.toTex({parenthesis: 'keep', implicit: 'hide'});
+                            var elem = MathJax.Hub.getAllJax('latex')[0];
+                            MathJax.Hub.Queue(['Text', elem, latex]);
+                        }
+                    }
+                    
+                    rowFocus = false;
+                    colFocus = false;
+                    matrixFocus = false;
+
+                    e.preventDefault()
+                })
+            })
+            
+            function popup() {
+                if(prev == emp) {
+                    $(next).toggle();
+                    prev = next;
+                }
+                else if(prev == next) {
+                    $(next).toggle();
+                    prev = emp;
+                }
+                else {
+                    $(prev).toggle();
+                    $(next).toggle();
+                    prev = next;
+                }
+            }
+            
+            $('.matrix-box').focus(function() {
+                $(this).css("background-color", "#cccccc");
+            })
+            
+            $('.matrix-box').blur(function() {
+                $(this).css("background-color", "#ffffff");
+            })
+            
+            $('#matrix-content').focus(function() {
+                matrixFocus = true;
+            })
+            
+            $('#matrix-content').click(function() {
+                cursorPosition = $('#matrix-content')[0].selectionStart;
+            })
+            
+            $('#row').focus(function() {
+                colFocus = false;
+                rowFocus = true;
+            })
+            
+            $('#col').focus(function() {
+                rowFocus = false;
+                colFocus = true;
+            })
+        })
+    </script>
+    
+    <script type="text/javascript">
+        function openHelp() {
+            $('#help-panel').show();
+        }
+        
+        function closeHelp() {
+            $('#help-panel').hide();
+        }
+        
+        function selectText() {
+            var selectionText = "";
+            if (document.getSelection) {
+                selectionText = document.getSelection();
+            } else if (document.selection) {
+                selectionText = document.selection.createRange().text;
+            }
+            return selectionText;
+        }
+            
+        document.onmousedown = function() {
+            document.getElementById("console").innerHTML = selectText();
+        }
+        
+        function clearMatrix() {
+            $('.matrix-box').val('');
+            $('#matrix-content').val('');
+            $('#matrix-content').attr('disabled', 'disabled');
+            $('.matrix-print').attr('disabled', 'disabled');
+        }
+    </script>
+</head>
+ 
+<body>
+    <h1>
+            PSB's Calculator
+    </h1>           
+   
+    <div id="calculator">
+        <div id="help-panel">
+            <button id="help-close" onclick="closeHelp()">x</button>
+            <div id="help-history">지금까지 계산된 히스토리를 보여줍니다.</div>
+            <div id="help-result">현재 계산하고 있는 수식과 결과를 보여줍니다.</div>
+            <div id="help-cp">복사&붙여넣기</div>
+            <div id="help-vm">벡터/행렬 생성</div>
+            <div id="help-hs">키의 도움말을 보여주거나 벡터/행렬의 데이터를 넣습니다.</div>
+            <div id="help-popup">바로 아래 각 그룹의 키를 누르면 팝업을 보여줍니다.</div>
+            <div id="help-group">사용 목적에 맞게 키들을 묶어둔 그룹 키입니다.</div>
+            <div id="help-bracketsM">중괄호</div>
+            <div id="help-bracketsB">대괄호</div>
+            <div id="help-complex">pi/e/복소수</div>
+            <div id="help-delete">삭제키</div>
+            <div id="help-num">숫자키</div>
+            <div id="help-cal">연산키</div>
+            <div id="help-num2">숫자키</div>
+            <div id="help-char">./,/:/;</div>
+            <div id="help-assign">대입키</div>
+            <div id="help-ev">계산키</div>
+        </div>
+        <button id="help" onclick="openHelp()">?</button>
+        
+        <pre id="history">History</pre>
+        <div id="latex"></div>
+        <div id="result"></div>
+        
+        <div id="console"></div>
+        <div class="key cp-key">copy</div>
+        <div class="key cp-key">paste</div>
+        <div class="key matrix-key">make<br>matrix</div>
+        <input class="matrix-box" id="row" placeholder="row">
+        <input class="matrix-box" id="col" placeholder="col">
+        <button class="matrix-clear" onclick="clearMatrix()">CL</button>
+        <input type="text" id="matrix-content" disabled>
+        <button class="key matrix-print" disabled>set</button>
+        
+        <div class="popup" id="compare">
+            <span class="key six-popup-key tg"><</span>
+            <span class="key six-popup-key tg">></span>
+            <span class="key six-popup-key tg"><=</span>
+            <span class="key six-popup-key tg">>=</span>
+            <span class="key six-popup-key tg">==</span>
+            <span class="key six-popup-key tg">!=</span>
+        </div>
+        <div class="popup" id="vecMat">
+            <span class="key five-popup-key tg">내적</span>
+            <span class="key five-popup-key tg">외적</span>
+            <span class="key five-popup-key tg">행렬곱</span>
+            <span class="key five-popup-key tg">Inverse</span>
+            <span class="key five-popup-key tg">Det</span>
+        </div>
+        <div class="popup" id="function">
+            <span class="key six-popup-key tg">sin</span>
+            <span class="key six-popup-key tg">cos</span>
+            <span class="key six-popup-key tg">tan</span>
+            <span class="key six-popup-key tg">exp</span>
+            <span class="key six-popup-key tg">log</span>
+            <span class="key six-popup-key tg">sqrt</span>
+        </div>
+        <div class="popup" id="varFx">
+            <span class="key five-popup-key tg">x</span>
+            <span class="key five-popup-key tg">y</span>
+            <span class="key five-popup-key tg">z</span>
+            <span class="key five-popup-key tg">f(x)</span>
+            <span class="key five-popup-key tg">g(x)</span>
+        </div>
+        <div id="empty"></div>
+
+        <span class="key keys">Compare</span>
+        <span class="key keys">Vector<br>Matrix</span>
+        <span class="key keys">Function</span>
+        <span class="key keys">Variable<br>f(x)</span>
+        
+        <!--<div class="menu" id="empty"></div>
+        <div class="menu" id="compare">
+            <span class="key button-key"><</span>
+            <span class="key button-key">></span>
+            <span class="key button-key"><=</span>
+            <span class="key button-key">>=</span>
+            <span class="key button-key">==</span>
+            <span class="key button-key">!=</span>
+        </div>
+        <div class="menu" id="vecMat">
+            <span class="key button-key">내적</span>
+            <span class="key button-key">외적</span>
+            <span class="key button-key">행렬곱셈</span>
+            <span class="key button-key">Inverse</span>
+            <span class="key button-key">Det</span>
+        </div>
+        <div class="menu" id="function">
+            <span class="key button-key">sin</span>
+            <span class="key button-key">cos</span>
+            <span class="key button-key">tan</span>
+            <span class="key button-key">exp</span>
+            <span class="key button-key">log</span>
+            <span class="key button-key">sqrt</span>
+        </div>
+        <div class="menu" id="varFx">
+            <span class="key button-key">x</span>
+            <span class="key button-key">y</span>
+            <span class="key button-key">z</span>
+            <span class="key button-key">f(x)</span>
+            <span class="key button-key">g(x)</span>
+        </div>-->
+        
+        <span class="key semi-key">(</span>
+        <span class="key semi-key">)</span>
+        <span class="key semi-key">[</span>
+        <span class="key semi-key">]</span>
+        <span class="key semi-key">pi</span>
+        <span class="key semi-key">e</span>
+        <span class="key semi-key">i</span>
+        <span class="key back-key">BS</span>
+        <span class="key clear-key">CL</span>
+        
+        <span class="key num">1</span>
+        <span class="key num">2</span>
+        <span class="key num">3</span>
+        <span class="key">*</span>
+        <span class="key">/</span>
+        
+        <span class="key num">4</span>
+        <span class="key num">5</span>
+        <span class="key num">6</span>
+        <span class="key">+</span>
+        <span class="key">-</span>
+        
+        <span class="key num">7</span>
+        <span class="key num">8</span>
+        <span class="key num">9</span>
+        <span class="key">%</span>
+        <span class="key">^</span>
+        
+        <span class="key">0</span>
+        <span class="key semi-key">.</span>
+        <span class="key semi-key">,</span>
+        <span class="key semi-key">:</span>
+        <span class="key semi-key">;</span>
+        <span class="key">=</span>
+        <span class="key eval-key">EV</span>
+        
+        <!--<span class="key">^</span>
+        <span class="key"><</span>
+        <span class="key">></span>
+        <span class="key"><=</span>
+        <span class="key">>=</span>
+        <span class="key">==</span>
+        <span class="key">!=</span>
+        <span class="key symbol-key">i</span>
+        <span class="key symbol-key">e</span>
+        <span class="key symbol-key">pi</span>
+        <span class="key symbol-key">w</span>
+        <span class="key symbol-key">x</span>
+        <span class="key symbol-key">y</span>
+        <span class="key symbol-key">z</span>
+        <span class="key symbol-key">f</span>
+        <span class="key symbol-key">g</span>
+        <span class="key">=</span>
+        <span class="key function-key">exp</span>
+        <span class="key function-key">log</span>
+        <span class="key function-key">sqrt</span>
+        <span class="key function-key">sin</span>
+        <span class="key function-key">cos</span>
+        <span class="key function-key">tan</span>
+        <span class="key function-key">cross</span>
+        <span class="key function-key">det</span>-->
+        
+        
+        <!--<div id="latex"></div>-->
+    </div>
+</body>
+</html>
